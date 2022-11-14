@@ -19,34 +19,6 @@ FROM PortfolioProject_1.dbo.CovidDeaths
 WHERE continent IS NOT NULL
 ORDER BY 1, 2
 
--- Looking closely on 'population' column i.e. why does it have NULL values and where.
-
-SELECT *
-FROM PortfolioProject_1.dbo.CovidDeaths
-WHERE population IS NULL
-
-/*Aparently, population is NULL in 'International' location. We could not determine how many people are living in 'international' location, because the term is ambiguous. 
-For simplicity, let's assume that population there is NULL. Therefore, we can substitute NULL for 0. 
-(Later, maybe it will be handy to make better estimation of NULL valuses there. For example, calculating median value of total_cases/population (excluding 'international') worldwide and based on that info 
-approximate population in 'international' location)*/
-
--- Handling NULL values.
-
-UPDATE CovidDeaths
-SET total_deaths = 0
-WHERE total_deaths IS NULL
-
-UPDATE CovidDeaths
-SET total_cases = 0
-WHERE total_cases IS NULL
-
-UPDATE CovidDeaths
-SET new_cases = 0
-WHERE new_cases IS NULL
-
-UPDATE CovidDeaths
-SET population = 0
-WHERE population IS NULL
 
 -- Looking at total cases vs total deaths i.e. death percentage of COVID 19
 
